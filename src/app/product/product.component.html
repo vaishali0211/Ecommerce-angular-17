@@ -1,0 +1,166 @@
+<br />
+<div class="row col-md-10">
+  <strong> All Product List </strong>
+  <div class="col-md-2">
+    <button
+      class="btn btn-dark float-right"
+      (click)="addProductPopup()"
+      data-bs-toggle="modal"
+      data-bs-target="#addEditProductModal"
+    >
+      Add Product
+    </button>
+  </div>
+</div>
+<table class="table-hover">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Product Name</th>
+      <!-- <th scope="col">Description</th>
+      <th scope="col">Image</th> -->
+      <th scope="col">MRP</th>
+      <th scope="col">DP</th>
+      <th scope="col">Status</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let product_data of all_product_data; let i = index">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>{{ product_data.name }}</td>
+
+      <!-- <td>{{ product_data.productDesc }}</td>
+      <td>{{ product_data.uploadPhoto }}</td> -->
+      <td>{{ product_data.mrp }}</td>
+      <td>{{ product_data.dp }}</td>
+      <td>{{ product_data.status }}</td>
+      <td>
+        <span class="sim-pointer" (click)="edtProductPopup(product_data.id)"
+          >Edit</span
+        >
+        &nbsp;
+        <span class="sim-pointer" (click)="deleteProduct(product_data.id)"
+          >Delete</span
+        >
+        &nbsp;
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Button trigger modal -->
+<button
+  type="button"
+  class="btn btn-primary btn-lg"
+  data-toggle="modal"
+  data-target="#modelId"
+>
+  Launch
+</button>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="addEditProductModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="addEditUserTitle"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ popup_header }}</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-10 offset-md-1">
+            <form [formGroup]="addEditProductForm">
+              <div class="form-group">
+                <label for="">Product Name</label>
+                <input
+                  type="text"
+                  class="from-control"
+                  formControlName="name"
+                />
+              </div>
+              <div class="form-group">
+                <label for="">Product Image U</label>
+                <input
+                  type="url"
+                  class="from-control"
+                  formControlName="uploadPhoto"
+                />
+              </div>
+              <div class="form-group">
+                <label for="Product Description">Product Description</label>
+                <textarea
+                  type="text"
+                  class="from-control"
+                  formControlName="productDesc"
+                ></textarea>
+              </div>
+              <div class="form-group">
+                <label for="Product MRP">Product MRP</label>
+                <input type="text" class="from-control" formControlName="mrp" />
+              </div>
+              <div class="form-group">
+                <label for="DP"> Product DP</label>
+                <input type="text" class="from-control" formControlName="dp" />
+              </div>
+              <div class="form-group">
+                <label for="Product Status">Product Status</label>
+                <select class="from-control" formControlName="status">
+                  <option value="draft">Draft</option>
+                  <option value="inactive">Inactive</option>
+                  <option value="publish">Publish</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  (click)="addNewProduct()"
+                  *ngIf="addProduct"
+                >
+                  Add Product
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-warning"
+                  (click)="updateProduct()"
+                  *ngIf="edit_product"
+                >
+                  Update Product
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $("#exampleModal").on("show.bs.modal", (event) => {
+    var button = $(event.relatedTarget);
+    var modal = $(this);
+    // Use above variables to manipulate the DOM
+  });
+</script>
